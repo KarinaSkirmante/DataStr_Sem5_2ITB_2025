@@ -145,6 +145,35 @@ public class MyGraph <Ttype>{
 		
 		
 	}
-	
+	//TODO
+	public void print() throws Exception {
+		if(isEmpty()) {
+			throw new Exception("Graph is empty and it is not possible to print elements");
+		}
+		
+		
+		for(int i = 0; i < counter; i++) {
+			System.out.print(vertices[i].getVerticeElement() + " -> ");
+			MyEdgeNode tempEgde = vertices[i].getFirstEdgeNode();
+			while(tempEgde != null)
+			{
+				float weight = tempEgde.getWeight();
+				
+				Ttype vertice = (Ttype)vertices[tempEgde.getIndexOfVerticeEdgeTo()].getVerticeElement();
+				
+				System.out.print(vertice + " (" + weight + " km); ");
+				
+				tempEgde = tempEgde.getNext();
+			}
+			System.out.println();
+		}
+		
+		
+	}
+	//funkcijas deklarācija
+	//pŗabude, vai nav tukšs
+	//for cikls, kas iet cauri visām virsotnēm un izprinte pasu elementu
+	//un papildus iet cauri visiem savienojumu 
+	//mezgliem un printē ari savienojumu svaru un virsotnes nosaukumu
 
 }
