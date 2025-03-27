@@ -170,10 +170,26 @@ public class MyGraph <Ttype>{
 		
 		
 	}
-	//funkcijas deklarācija
-	//pŗabude, vai nav tukšs
-	//for cikls, kas iet cauri visām virsotnēm un izprinte pasu elementu
-	//un papildus iet cauri visiem savienojumu 
-	//mezgliem un printē ari savienojumu svaru un virsotnes nosaukumu
+	//TODO
+	public void removeEdge(Ttype elementFrom, Ttype elementTo, float weight) throws Exception{
+		if(elementFrom == null || elementTo == null || weight <= 0) {
+			throw new Exception("Wrong input params");
+		}
+		int indexOfElementFrom = getIndexOfVertice(elementFrom);
+		int indexOfElementTo = getIndexOfVertice(elementTo);
+		
+		if(indexOfElementFrom == -1)
+		{
+			throw new Exception("Element from (" + elementFrom + ") doesn't exist");
+		}
+		
+		if(indexOfElementTo == -1)
+		{
+			throw new Exception("Element to (" + elementTo + ") doesn't exist");
+		}
+		
+	}
+	//removeVertice
+	
 
 }
