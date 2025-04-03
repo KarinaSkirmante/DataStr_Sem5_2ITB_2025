@@ -1,5 +1,6 @@
 package datastr;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class MyGraph <Ttype>{
@@ -283,7 +284,70 @@ public class MyGraph <Ttype>{
 	//TODO uztaisīt apstaigāšanas algoritmu platumā
 	
 	
-	
+	public void minimumSpanningTreeOptimisation()
+	{
+		//TODO veikt pārbaudes, vai grafs ir tukšs
+		
+		
+		int howManyVerticesVisited = 0;
+		
+		vertices[0].setVisited(true);
+		howManyVerticesVisited++;
+		Stack<MyVerticeNode> stackForVisitedVertices = new Stack<MyVerticeNode>();
+		stackForVisitedVertices.push(vertices[0]);
+		ArrayList<MyFullEdgeNode> fullEdges = new ArrayList<MyFullEdgeNode>();
+		while(howManyVerticesVisited < counter)
+		{
+			MyVerticeNode<Ttype> nodeFromStack = stackForVisitedVertices.pop();
+			MyEdgeNode currentEdgeNode =  nodeFromStack.getFirstEdgeNode();
+			while(currentEdgeNode != null)
+			{
+				int indexOfVerticeFrom = getIndexOfVertice(nodeFromStack.getVerticeElement());
+				
+				MyFullEdgeNode fullEdge = new MyFullEdgeNode(currentEdgeNode, indexOfVerticeFrom);
+				fullEdges.add(fullEdge);
+				
+				currentEdgeNode = currentEdgeNode.getNext();
+			}
+			
+			for(MyFullEdgeNode tempFullEdge : fullEdges) {
+				int indexElementTo = tempFullEdge.getEdgeFromGraph().getIndexOfVerticeEdgeTo();
+				//ja savienojuma virsotne uz kuru iet ir jau apstaigats, tad savienojumu var dzēst
+				if(vertices[indexElementTo].isVisited())
+				{
+					tempFullEdge.setNeedToDelete(true);
+					tempFullEdge.setVisited(true);
+				}
+			}
+			
+			//atrast īsāko savienojums
+			float minWeight = Float.MAX_VALUE;
+			MyFullEdgeNode edgeNodeWithSmallerWeight = null;
+			for(MyFullEdgeNode tempFullEdge : fullEdges)
+			{
+				if(!tempFullEdge.isVisited())
+				{
+					if(tempFullEdge.getEdgeFromGraph().getWeight() < minWeight)
+					{
+						minWeight = tempFullEdge.getEdgeFromGraph().getWeight();
+						edgeNodeWithSmallerWeight = tempFullEdge;
+					}
+				}
+			}
+			
+			edgeNodeWithSmallerWeight.setNeedToDelete(false);
+			edgeNodeWithSmallerWeight.setVisited(true);
+			
+			int indexOfverticeWithSmallerEdge = edgeNodeWithSmallerWeight.getIndexOfVerticeEdgeFrom();
+			stackForVisitedVertices.push(vertices[indexOfverticeWithSmallerEdge]);
+			vertices[indexOfverticeWithSmallerEdge].setVisited(true);
+			howManyVerticesVisited++;
+			
+		}
+		
+		
+	}
+	//TODO notestēt un pielabot majās (ja nepieciešams)
 	
 	
 	
