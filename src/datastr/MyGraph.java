@@ -221,7 +221,7 @@ public class MyGraph <Ttype>{
 			throw new Exception("Element to is equals to element from");
 		}
 		
-		
+		setIsVisitedFalseToAllVertices();
 		Stack<MyVerticeNode> stackForVertices = new Stack<MyVerticeNode>();
 		
 		stackForVertices.push(vertices[indexOfElementFrom]);
@@ -272,6 +272,13 @@ public class MyGraph <Ttype>{
 	}
 	
 	
+	private void setIsVisitedFalseToAllVertices() {
+		for(int i = 0; i < counter; i++)
+		{
+			vertices[i].setVisited(false);
+		}
+	}
+
 	
 	
 	
