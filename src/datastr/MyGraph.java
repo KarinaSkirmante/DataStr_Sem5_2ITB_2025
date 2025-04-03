@@ -280,7 +280,7 @@ public class MyGraph <Ttype>{
 	}
 
 	
-	
+	//TODO uztaisīt apstaigāšanas algoritmu platumā
 	
 	
 	

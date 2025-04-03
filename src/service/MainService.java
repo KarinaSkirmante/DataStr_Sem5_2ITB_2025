@@ -8,7 +8,7 @@ public class MainService {
 		MyGraph<String> myMap = new MyGraph<String>(2);
 		
 		try {
-			
+			System.out.println("-------------------CREATE GRAPH--------------------");
 			myMap.addVertice("Atlanta");
 			myMap.addVertice("Austin");
 			myMap.addVertice("Chicago");
@@ -42,7 +42,10 @@ public class MainService {
 			
 			myMap.print();
 			
-			
+			System.out.println("---------------SEARCH PATH------------------------");
+			System.out.println("PATH: " + myMap.searchPathDepthFirstAlgorithm("Austin", "Washington"));
+			System.out.println("PATH: " + myMap.searchPathDepthFirstAlgorithm("Dallas", "Houston"));
+			//System.out.println("PATH: " + myMap.searchPathDepthFirstAlgorithm("Houston", "Austin"));
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
