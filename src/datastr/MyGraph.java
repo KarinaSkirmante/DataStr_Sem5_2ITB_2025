@@ -1,5 +1,7 @@
 package datastr;
 
+import java.util.Stack;
+
 public class MyGraph <Ttype>{
 	
 	private MyVerticeNode[] vertices;
@@ -214,7 +216,58 @@ public class MyGraph <Ttype>{
 		}
 		
 		
+		if(elementFrom.equals(elementTo))
+		{
+			throw new Exception("Element to is equals to element from");
+		}
 		
+		
+		Stack<MyVerticeNode> stackForVertices = new Stack<MyVerticeNode>();
+		
+		stackForVertices.push(vertices[indexOfElementFrom]);
+		
+		String path = "";
+		do
+		{
+			MyVerticeNode nodeFromStack = stackForVertices.pop();
+			int indexOfNodeFromStack = getIndexOfVertice((Ttype) nodeFromStack.getVerticeElement());
+			vertices[indexOfNodeFromStack].setVisited(true);
+			
+			//vai esam atradušu virsotni, uz kuru gribam nokļūt
+			if(nodeFromStack.getVerticeElement().equals(elementTo))
+			{
+				path += " -> " + nodeFromStack.getVerticeElement();
+				return path;
+			}
+			//nav atrasta virsotnu, uz kuru gribu nokļūt, tad meklējam talāk
+			else
+			{
+				path += " -> " + nodeFromStack.getVerticeElement();
+				
+				MyEdgeNode currentEdgeNode =  nodeFromStack.getFirstEdgeNode();
+				
+				while(currentEdgeNode != null)
+				{
+					int indexOfNeighbour = currentEdgeNode.getIndexOfVerticeEdgeTo();
+					MyVerticeNode verticeOfNeightbour = vertices[indexOfNeighbour];
+					if(!verticeOfNeightbour.isVisited())
+					{
+						stackForVertices.push(verticeOfNeightbour);
+					}
+					
+					
+					currentEdgeNode = currentEdgeNode.getNext();
+				}
+				
+				
+				
+			}
+			
+			
+		}
+		while(!stackForVertices.empty());
+		
+		return "Path is not found";
 		
 	}
 	
